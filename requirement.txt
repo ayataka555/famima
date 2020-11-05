@@ -1,0 +1,5 @@
+playsound==1.2.2
+pyobjc==6.2.2
+requests==2.24.0
+beautifulsoup4==4.9.3
+pyppeteer==0.2.2
