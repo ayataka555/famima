@@ -45,7 +45,7 @@ async def main(platform,url):
 
 if __name__ == '__main__':
   url = None
+  platform = sys.argv[1]
   if len(sys.argv) is 3:
-    platform = sys.argv[1]
     url = sys.argv[2]
   asyncio.get_event_loop().run_until_complete(main(platform,url))
