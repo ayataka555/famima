@@ -22,8 +22,12 @@ async def get_viewer(browser, platform, url=None):
   if platform == "mildom":
     now_viewer = int(text)
   if platform == "youtube":
-    now_viewer = text.replace(' 人が視聴中','').replace(',','')
-    now_viewer = int(now_viewer)
+    try:
+      now_viewer = text.replace(' 人が視聴中','').replace(',','')
+      now_viewer = int(now_viewer)
+    except:
+      print("viewer is not exist")
+      return 0
   return now_viewer
 
 async def main(platform,url):
