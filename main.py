@@ -26,21 +26,23 @@ async def get_viewer(browser, platform, url=None):
       now_viewer = text.replace(' 人が視聴中','').replace(',','')
       now_viewer = int(now_viewer)
     except:
+      await page.close()
       print("viewer is not exist")
       return 0
+  await page.close()
   return now_viewer
 
 async def main(platform,url):
   try:
     old = 0
+    browser = await launch()
     while(1):
-      browser = await launch()
       new = await get_viewer(browser, platform,url)
       print('viewer:{}'.format(new))
       if (old < new):
         playsound("./sound/famima.wav")
       old = new
-      await browser.close()
+    await browser.close()
   except RuntimeError:
     print("run time error")
   except KeyboardInterrupt:
