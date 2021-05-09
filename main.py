@@ -7,8 +7,7 @@ import asyncio
 from pyppeteer.launcher import launch
 
 
-async def get_viewer(browser, platform, url=None):
-  page = await browser.newPage()
+async def get_viewer(page, platform, url=None):
   if platform == 'mildom':
     url = 'https://www.mildom.com/10810380'
     class_name='.room-anchor-panel__viewer-container>span'
@@ -26,18 +25,17 @@ async def get_viewer(browser, platform, url=None):
       now_viewer = text.replace(' 人が視聴中','').replace(',','')
       now_viewer = int(now_viewer)
     except:
-      await page.close()
       print("viewer is not exist")
       return 0
-  await page.close()
   return now_viewer
 
 async def main(platform,url):
   try:
     old = 0
     browser = await launch()
+    page = await browser.newPage()
     while(1):
-      new = await get_viewer(browser, platform,url)
+      new = await get_viewer(page, platform,url)
       print('viewer:{}'.format(new))
       if (old < new):
         playsound("./sound/famima.wav")
